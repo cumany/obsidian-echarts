@@ -15,6 +15,7 @@
     "@rollup/plugin-typescript": "^8.3.0",
     "@types/node": "^17.0.20",
     "obsidian": "^0.13.26",
+    "obsidian-dataview": "^0.5.20",
     "prettier": "^2.6.0",
     "rollup": "^2.68.0",
     "rollup-plugin-postcss": "^4.0.2",
