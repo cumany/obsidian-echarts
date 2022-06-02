@@ -1,6 +1,7 @@
 # obsidian-echarts
  Render echarts in obsidian,[Apache ECharts](https://echarts.apache.org/en/index.html)，An Open Source JavaScript Visualization Library
 一个可以在obsidian 里运行echarts 的插件，具体可以参考官方示例库代码。插件需要依赖dataview插件，example文件夹是一些基本例子。 更多示例可以关注[Blue-topaz-examples](https://github.com/cumany/Blue-topaz-examples)
+![GIF 2022-06-02 13-31-49](https://user-images.githubusercontent.com/42957010/171559841-cfa4e5e2-69be-4506-a32f-beac33842052.gif)
 ![image](https://user-images.githubusercontent.com/42957010/171442642-fce4d273-ee06-4a3b-bb8c-e312f8763ce6.png)
 ![image](https://user-images.githubusercontent.com/42957010/171442781-67127459-5c35-4535-a80c-1c79059c3853.png)
 ![image](https://user-images.githubusercontent.com/42957010/171444744-5ba1e0e8-b01c-4f4b-b9e1-4ef448ded02f.png)
