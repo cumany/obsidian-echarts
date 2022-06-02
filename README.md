@@ -17,6 +17,12 @@ datas.forEach((data)=>{
 })
 ```
 
-如果不指定，默认绑定的是传入的 data 数组中的 index 对应的文件。
+**如果不指定，默认绑定的是传入的 data 数组中的 index 对应的文件。**
 
+
+## 渲染容器
+将下方代码到option 选项后即可渲染
+```
+app.plugins.plugins['obsidian-echarts'].render(option, this.container)
+```
 
