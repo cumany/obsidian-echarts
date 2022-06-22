@@ -2,6 +2,7 @@ import * as echarts from 'echarts'
 import 'echarts-wordcloud'
 import { OptionsType } from './type'
 import { getAPI } from 'obsidian-dataview'
+import { Notice } from 'obsidian'
 
 export default class Renderer {
   constructor(public options: OptionsType, public el: HTMLElement) {}
@@ -32,17 +33,15 @@ export default class Renderer {
     const myChart = this.initChart()
     const { width, height, ...option } = this.options
     const source = option.source
-    //@ts-ignore
-    const pages = getAPI(app).pages(`"${source}"`)
-    //console.log(source, pages)
+    const dv = getAPI(app);
+    if ( typeof dv == 'undefined' ) { return new Notice('Dataview is not installed. This plugin requires Dataview to work properly.',3000); }
+    const pages = dv.pages(`"${source}"`)
     const data = pages.map((page) => { 
-      //console.log(page.file.size)
       return {
         name: page.file.name,
         value: page.file.size
       }
     })
-    console.log(data)
     const chartOption = {
       backgroundColor: '#2c343c',
       title: {
@@ -108,36 +107,27 @@ export default class Renderer {
       myChart.on('click', function (params) {
         let prefix: string = ''
         let searchWord: string = ''
-        function search(searchWord: string) {
-          const tmpLink = window.document.body.createEl('a', {
-            href: `obsidian://search?query=${searchWord}`,
-          })
-          tmpLink.click()
-          tmpLink.remove()
-        }
         if (params.data['search']) {
           let search = params.data['search']
-          if (search === 'tag') prefix = 'tag%3A'
-          if (search === 'content') prefix = 'content%3A'
-          if (search === 'path') prefix = 'path%3A'
-          if (search === 'file') prefix = 'file%3A'
+          if (search === 'tag') prefix = 'tag:'
+          if (search === 'content') prefix = 'content:'
+          if (search === 'path') prefix = 'path:'
+          if (search === 'file') prefix = 'file:'
           searchWord = prefix + params.name
         }
         if (params.data['path']) {
-          searchWord = searchWord + ' ' + 'path%3A' + params.data['path']
+          searchWord = searchWord + ' ' + 'path:' + params.data['path']
         }
         if (params.data['file']) {
-          searchWord = searchWord + ' ' + 'file%3A' + params.data['file']
+          searchWord = searchWord + ' ' + 'file:' + params.data['file']
         }
         if (searchWord) {
-          search(searchWord)
+          app.internalPlugins.getPluginById('global-search')?.instance.openGlobalSearch(searchWord);
         } else {
-          //@ts-ignore
           const filePath = app.metadataCache.getFirstLinkpathDest(
             params.name,
-            params.name
+            ""
           )
-          //@ts-ignore
           app.workspace.getUnpinnedLeaf().openFile(filePath)
         }
       })

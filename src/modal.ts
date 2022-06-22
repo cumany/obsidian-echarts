@@ -1,4 +1,5 @@
-import { App, Modal, Setting } from 'obsidian'
+var obsidian = require('obsidian');
+import { App, Modal, Setting, Notice } from 'obsidian'
 
 export default class EchartsModal extends Modal {
   app: App
@@ -24,10 +25,11 @@ export default class EchartsModal extends Modal {
     new Setting(this.contentEl).addButton((b) => {
       b.setButtonText('Create')
       b.onClick(() => {
-        //@ts-ignore
-        const editor = this.app.workspace.activeLeaf.view.editor
-        editor.replaceRange(`\`\`\`echarts\ntype:pie\nsource:${option.source}\n\`\`\``, editor.getCursor())
-        console.log(option)
+        const view = this.app.workspace.getActiveViewOfType(obsidian.MarkdownView)
+        if (!view) {
+          return new Notice('Can only be created in editing mode',3000);
+        }
+        view.editor.replaceRange(`\`\`\`echarts\ntype:pie\nsource:${option.source}\n\`\`\``, view.editor.getCursor())
         this.close()
       })
     })

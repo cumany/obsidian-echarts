@@ -2,6 +2,7 @@ import { Plugin, parseYaml } from 'obsidian'
 import Renderer from 'renderer'
 import ChartsCreator from 'chartsCreator';
 import { OptionsType } from './type';
+import * as echarts from 'echarts'
 
 export default class EchartsPlugin extends Plugin {
   async onload(): Promise<void> {
@@ -21,7 +22,6 @@ export default class EchartsPlugin extends Plugin {
       if (!options) {
         return
       }
-
       const renderer = new Renderer(options, el)
 
       if (options.chartType === 'pie') {
@@ -31,7 +31,9 @@ export default class EchartsPlugin extends Plugin {
       }
     })
   }
-
+  echarts() {
+    return echarts
+  }
   render(options:OptionsType, el: HTMLElement) {
     const renderer = new Renderer(options, el)
     renderer.render()
