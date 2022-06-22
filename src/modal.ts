@@ -6,10 +6,9 @@ export default class EchartsModal extends Modal {
   chartType: string
   constructor(app: App, chartType: string) {
     super(app)
-    this.chartType = 'pie'
+    this.chartType = chartType
   }
-
-  pieModal() {
+  createPie() {
     let option = {
       source: '',
     }
@@ -33,13 +32,10 @@ export default class EchartsModal extends Modal {
         this.close()
       })
     })
+    this.open()
   }
 
-  onOpen() {
-    if (this.chartType === 'pie') {
-      this.pieModal()
-    }
-  }
+ 
 
   onClose() {
     let { contentEl } = this

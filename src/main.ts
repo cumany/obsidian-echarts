@@ -1,6 +1,6 @@
 import { Plugin, parseYaml } from 'obsidian'
 import Renderer from 'renderer'
-import ChartsCreator from 'chartsCreator';
+import EchartsModal from 'modal';
 import { OptionsType } from './type';
 import * as echarts from 'echarts'
 
@@ -12,7 +12,7 @@ export default class EchartsPlugin extends Plugin {
       id: "echarts-create-charts",
       name: "create echarts",
       callback: () => {
-        const creator = new ChartsCreator(this.app)
+        const creator = new EchartsModal(this.app,"pie")
         creator.createPie()
       },
     });
